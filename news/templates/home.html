@@ -16,9 +16,9 @@ Página Inicial
         <div>
                 <h2 class="news-title">{{ new.title }}</h2>
                 <span class="news-date">{{ new.created_at|date:"d/m/Y" }}</span>
-                {% if news.image %}
-                <img src="{% static news.image.url %}" alt="{{ news.title }}" class="news-image" />
-                {% endif %}
+               
+                <img src="{% static new.image.url %}" alt="{{ news.title }}" class="news-image" />
+                
         </div>
 
         {% endfor %}
