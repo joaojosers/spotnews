@@ -8,7 +8,7 @@ Página de Detalhes da Notícia
 {% block content %}
     
     <section class="news-details">
-        <img src="{ % static news.image.url % }" alt="{{ news.title }}" class="news-image" />
+        <img src="{% static news.image.url %}" alt="{{ news.title }}" class="news-image" />
         <h1 class="news-title">{{ news.title }}</h1>
         <p class="news-content">{{ news.content }}</p>
         <section class="news-categories-container">
