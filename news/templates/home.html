@@ -17,7 +17,7 @@ Página Inicial
                 <h2 class="news-title">{{ new.title }}</h2>
                 <span class="news-date">{{ new.created_at|date:"d/m/Y" }}</span>
                
-                <img src="{% static new.image.url %}" alt="{{ news.title }}" class="news-image" />
+                <img src="{% static new.image.url %}" alt="{{ new.title }}" class="new-image" />
                 
         </div>
 
