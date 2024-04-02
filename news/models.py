@@ -43,17 +43,4 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
-    # def save(self, *args, **kwargs):
-    #     if self.title and len(self.title.split()) < 2:
-    #         raise ValidationError(
-    #             {"title": [_("O título deve conter pelo menos 2 palavras.")]}
-    #         )
-    #     super().save(*args, **kwargs)
-
-    # def save(self, *args, **kwargs):
-    #     # teste para novo commit
-    #     if self.title and len(self.title.split()) < 2:
-    #         raise ValidationError(
-    #             _("O título deve conter pelo menos 2 palavras.")
-    #             )
-    #     super().save(*args, **kwargs)
+    
