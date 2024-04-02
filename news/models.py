@@ -1,10 +1,15 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
+from django.forms import ValidationError
+from django.utils.translation import gettext_lazy as _
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
+
 
 class User(models.Model):
     name = models.CharField(max_length=200)
@@ -14,3 +19,24 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class News(models.Model):
+    title = models.CharField(
+        max_length=200, validators=[MinLengthValidator(2)]
+        )
+    content = models.TextField(validators=[MinLengthValidator(1)])
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateField()
+    image = models.ImageField(upload_to='img/', blank=True)
+    categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if self.title and len(self.title.split()) < 2:
+            raise ValidationError(
+                _("O título deve conter pelo menos 2 palavras.")
+                )
+        super().save(*args, **kwargs)
