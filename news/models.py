@@ -1,7 +1,9 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
-from django.forms import ValidationError
+from django.core.exceptions import ValidationError
+# from django.forms import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -33,10 +35,18 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
-
+    
     def save(self, *args, **kwargs):
         if self.title and len(self.title.split()) < 2:
             raise ValidationError(
-                _("O título deve conter pelo menos 2 palavras.")
-                )
+                {"title": [_("O título deve conter pelo menos 2 palavras.")]}
+            )
         super().save(*args, **kwargs)
+
+    # def save(self, *args, **kwargs):
+    #     # teste para novo commit
+    #     if self.title and len(self.title.split()) < 2:
+    #         raise ValidationError(
+    #             _("O título deve conter pelo menos 2 palavras.")
+    #             )
+    #     super().save(*args, **kwargs)
