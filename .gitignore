@@ -163,3 +163,4 @@ cython_debug/
 static
 # settings.py
 /spotnews/settings.py
+spotnews/settings.py
