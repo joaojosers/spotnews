@@ -12,6 +12,6 @@ class FormNews(forms.Form):
     author = forms.ModelChoiceField(queryset=User.objects.all())
     created_at = forms.DateField()
     image = forms.ImageField()
-    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all())
-
-
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all()
+        )
