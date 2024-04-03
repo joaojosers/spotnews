@@ -20,4 +20,5 @@ def categories_form(request):
         if form.is_valid():
             Category.objects.create(**form.cleaned_data)
             return redirect("home-page")
-    return render(request, "categories_form.html", {"form": form})
+    # return render(request, "categories_form.html", {"form": form})
+    return render(request, "categories_form.html", {"form": form, "show_categories_link": True})
