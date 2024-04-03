@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Formulário para Nova Notícia
+{% endblock %}
+
+{% block categories_link %}
+<li><a href="{% url 'categories-form' %}">Cadastrar Categorias</a></li>
+<li><a href="{% url 'news-form' %}">Cadastrar Notícias</a></li>
+{% endblock %}
+
+{% block news_form %}
+<main>
+    <h1>Formulário para Nova Notícia</h1>
+    <form method="post" action="{% url 'news-form' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="id_title">Título</label>
+        <input type="text" name="title" maxlength="200" required>
+
+        <label for="id_content">Conteúdo</label>
+        <textarea name="content" rows="4" required></textarea>
+
+        <label for="id_author">Autoria</label>
+        <select name="author" required>
+            <option value="" disabled selected>Escolha um autor</option>
+            {% for author in form %}
+                <option value="{{ author.id }}">{{ author }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="id_created_at">Criado em</label>
+        <input type="date" name="created_at" required>
+
+        <label for="id_image">URL da Imagem</label>
+        <input type="file" name="image" accept="image/*">
+
+        <label>Categorias</label>
+        {% for category in categories %}
+            <input type="checkbox" name="categories" value="{{ category.id }}">
+            <label for="id_categories_{{ category.id }}">{{ category.name }}</label>
+        {% endfor %}
+
+        <button type="submit">Salvar</button>
+    </form>
+</main>
+{% endblock %}
