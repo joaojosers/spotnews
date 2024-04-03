@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import News, Category
+from .models import News, Category, User
 from .forms import FormCategories, FormNews
 from rest_framework import viewsets,status
 from rest_framework.response import Response
-from .serializers import CategorySerializer
+from .serializers import CategorySerializer, UserSerializer
 
 
 # Create your views here.
@@ -69,10 +69,22 @@ class CategoryViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-# class CategoryViewSet(viewsets.ViewSet):
-#     queryset = Category.objects.all()  # Defina o atributo queryset
 
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# class UserViewSet(viewsets.ViewSet):
 #     def list(self, request):
-#         serializer = CategorySerializer(self.queryset, many=True)
+#         queryset = User.objects.all()
+#         serializer = UserSerializer(queryset, many=True)
 #         return Response(serializer.data)
+
