@@ -83,10 +83,23 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
 
+# class NewsViewSet(viewsets.ViewSet):
+#     def list(self, request):
+#         queryset = News.objects.all()
+#         serializer = NewsSerializer(queryset, many=True)
+#         return Response(serializer.data)
+
+#     def create(self, request):
+#         serializer = NewsSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class NewsViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = News.objects.all()
-        serializer = NewsSerializer(queryset, many=True)
+        serializer = NewsSerializer(queryset, many=True, context={'request': request})  # Passando o contexto para o serializador
         return Response(serializer.data)
 
     def create(self, request):

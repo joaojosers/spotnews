@@ -83,12 +83,8 @@ WSGI_APPLICATION = "spotnews.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.sqlite3",
         "NAME": "spotnews_database",
-        "USER": os.getenv("DB_USER", "root"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "password"),
-        "HOST": os.getenv("MYSQL_HOST", "127.0.0.1"),
-        "PORT": "3306",
     }
 }
 
