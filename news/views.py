@@ -3,7 +3,7 @@ from .models import News, Category, User
 from .forms import FormCategories, FormNews
 from rest_framework import viewsets,status
 from rest_framework.response import Response
-from .serializers import CategorySerializer, UserSerializer
+from .serializers import CategorySerializer, UserSerializer, NewsSerializer
 
 
 # Create your views here.
@@ -81,10 +81,17 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-# class UserViewSet(viewsets.ViewSet):
-#     def list(self, request):
-#         queryset = User.objects.all()
-#         serializer = UserSerializer(queryset, many=True)
-#         return Response(serializer.data)
+  
 
+class NewsViewSet(viewsets.ViewSet):
+    def list(self, request):
+        queryset = News.objects.all()
+        serializer = NewsSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
