@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  database: 
+    build: .
+    ports:
+      - "3306:3306"
+    
+  Python:
+    image: python:3.8
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
+    working_dir: /app
+    command: bash
+    environment:
+      MYSQL_HOST: database
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_PORT: 3306
+      MYSQL_DB: spotnews_database
+    
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+      
