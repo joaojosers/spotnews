@@ -30,7 +30,7 @@ docker build -t spotnews-db .
 docker run -d -p 3306:3306 --name=spotnews-mysql-container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=spotnews_database spotnews-db
 ```
 * Ao criar/modificar um modelo, é necessário criar as migrações para espelhar as modificações para os bancos de dados, inclusive o banco de testes contam com estas modificações. O comando para gerar a migration a partir dos modelos criados é:
-````
+```
 python3 manage.py makemigrations
 ```
 * após criar os modelos é preciso executar os comandos: o primeiro para criar as tabelas no banco e o segundo comando irá popular o banco.
